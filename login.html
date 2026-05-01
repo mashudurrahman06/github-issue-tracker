@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Github issue tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        *{
+            
+            font-family: "Geist", sans-serif;
+            
+
+
+    
+        }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <section>
+    <div class="w-[450px] m-auto bg-[hsl(0,0%,100%)] mt-[80px] shadow-sm rounded-lg md:w-[520px]  ">
+        <div class="flex flex-col justify-center items-center">
+            <img class="mt-[32px]" src="./assets/github-logo.png" alt="logo">
+            <h2 class="pt-6 font-semibold text-[24px]">GitHub Issues Tracker</h2>
+            <p class="pt-2 pb-[24px] text-[#64748B] text-[16px]">Sign in to manage your issues</p>
+            <div id="invalid-alert" class="bg-red-600 text-white py-1 px-8 rounded-lg hidden "><p>Inavalid Login Info</p></div>
+        </div>
+        <div>
+            <label class="block text-black-700 font-medium mb-2 pl-8">
+             Username
+            </label>
+            <input id="UserName" type="text" placeholder="Enter  Username" class="p-2 mx-8 w-[350px] border-none opacity-100 border- bg-[#E4E4E7] shadow-lg rounded pl-2 md:w-[456px]"  >
+            <p class="pl-8 text-[#4A00FF] pt-2 pb-4">Default: admin</p>
+
+             <label class="block text-black-700 font-medium mb-2 pl-8">
+             Password
+            </label>
+            <input id="password" type="password" placeholder="Enter Password" class="p-2 mx-8 w-[350px] border-none opacity-100 border- bg-[#E4E4E7] shadow-lg rounded pl-2 md:w-[456px]"  >
+            <p class="pl-8 text-[#4A00FF] pt-2">Default: admin123</p>
+
+            <button id="login-btn" class="bg-[#4A00FF] py-2 w-[350px] text-white mx-8 rounded-lg mt-8 mb-8 md:w-[456px]">Sing in</button>
+        </div>
+
+    </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
