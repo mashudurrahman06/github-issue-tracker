@@ -20,22 +20,25 @@
                 <h2 class="hidden md:block font-semibold text-[24px]">github issue tracker</h2>
             </div>
             <div class=" w-1/2 relative lg:w-full max-w-md "> 
-        <input id="Search" class=" w-1/2 lg: w-full rounded-[32px] bg-gray-100 border-none pl-4 px-16 py-2 " placeholder="search" type="search"> 
+        <input id="searchInput" class=" w-1/2 lg: w-full rounded-[32px] bg-gray-100 border-none pl-4 px-16 py-2 " placeholder="search" type="search"> 
         <button class="absolute right-1 top-1/2 -translate-y-1/2 bg-white py-[6px] px-[6px] rounded-[32px] "><img class="cursor-pointer" src="./assets/search (1).png" alt=""></button>
             </div>
         </nav>
     </header>
     <section class=" bg-[#F8FAFC] p-8">
         <div class="bg-white py-8 max-w-[1110px] m-auto mt-[28px] rounded-lg flex gap-3 ">
-            <button id="All" class="py-2 px-3 border-blue-500 border-[1px] rounded-lg ml-5">All</button>
-            <button id="open" class="py-2 px-3 border-blue-500 border-[1px] rounded-lg">Open</button>
-            <button id="close" class="py-2 px-3 border-blue-500 border-[1px] rounded-lg">Close</button>
+            <button onclick="setTab('all', this)" class="border-blue-500 border-[1px] tab rounded-[24px] py-2 px-6">All</button>
+    <button onclick="setTab('open', this)" class="border-blue-500 border-[1px] tab rounded-[24px] py-2 px-6">Open</button>
+    <button onclick="setTab('closed', this)" class="border-blue-500 border-[1px] tab rounded-[24px] py-2 px-6">Closed</button>
+
+    
+    
         </div>
 
         <div class=" bg-white m-auto mt-4 rounded-lg flex justify-between items-center max-w-[1110px] py-8">
             <div class="flex pl-[36px] gap-2"> 
                 <div><img class="bg-purple-300 rounded-[50%] py-1 px-1" src="./assets/Aperture.png" alt=""></div>
-               <div> <h2 id="tabcount" class="font-semibold text-[16px]">50 <span>issues</span></h2>
+               <div> <h2 id="countbox" class="font-semibold text-[16px]"> </h2>
                 <p class="text-[#64748B]">Track and manage your project issues</p></div>
             </div>
             <div class="pr-[40px] flex items-center gap-1">
@@ -68,15 +71,42 @@
 
 
 
-        <div id="card-section" class="grid grid-cols-1 gap-4 max-w-[1110px] m-auto rounded-lg bg-[#FBFBFB] md:grid-cols-2 lg:grid-cols-4 ">
+        <div id="card-section" class=" relative grid grid-cols-1 gap-4 max-w-[1110px] m-auto rounded-lg bg-[#FBFBFB] md:grid-cols-2 lg:grid-cols-4 ">
 
 
 
-
+           
 
 
         </div>
 
+    
+
+
+</div>
+<div id="card-section" class="relative grid grid-cols-3 gap-4"></div>
+
+<!-- MODAL (card section এর ভিতরে রাখবে) -->
+<div id="modal" class="absolute hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+
+  <div class="bg-white w-[420px] rounded-lg p-5 shadow-lg relative">
+
+    <button onclick="closeModal()" class="absolute top-2 right-3 text-xl">✖</button>
+
+    <h2 id="modal-title" class="text-lg font-bold"></h2>
+    <p id="modal-desc" class="text-sm text-gray-600"></p>
+
+    <p class="mt-2 text-sm">
+      Status: <span id="modal-status"></span>
+    </p>
+
+    <button onclick="closeModal()" class="mt-4 w-full bg-blue-500 text-white py-2 rounded">
+      Close
+    </button>
+
+  </div>
+
+</div>
 
 
        
