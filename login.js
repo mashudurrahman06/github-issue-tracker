@@ -12,7 +12,7 @@ document.getElementById("login-btn").addEventListener("click", function (e) {
     const pass = passInput.value;
     
     if (user === correctUser && pass === correctPass) {
-        window.location.href = "index.html";
+        window.location.href = "dashboard.html";
     } else {
             msg.classList.remove("hidden");
 
@@ -24,4 +24,14 @@ document.getElementById("login-btn").addEventListener("click", function (e) {
           userInput.focus();
             
     }
+
+    
+ 
 });
+
+
+
+
+
+
+

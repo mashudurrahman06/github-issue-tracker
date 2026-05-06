@@ -9,6 +9,37 @@ const countBox = document.getElementById("countbox");
 const modal = document.getElementById("modal");
 const searchInput = document.getElementById("searchInput");
 
+
+
+//------Helper Function-------//
+
+function getLabelColor(label) {
+  const labelColors = {
+    bug: "bg-red-100 text-red-500",
+    "help wanted": "bg-yellow-100 text-yellow-600",
+    enhancement: "bg-green-100 text-green-600",
+    "good first issue": "bg-blue-100 text-blue-600"
+  };
+
+  return labelColors[label.toLowerCase()] || "bg-gray-100 text-gray-500";
+}
+
+function getPriorityClass(priority = "") {
+  const p = priority.toLowerCase();
+
+  if (p === "high") {
+    return "bg-[#FEECEC] text-red-600";
+  } 
+  else if (p === "medium") {
+    return "bg-[#FFF6D1] text-orange-600";
+  } 
+  else if (p === "low") {
+    return "bg-gray-200 text-gray-500";
+  }
+
+  return "bg-gray-100 text-gray-500";
+}
+
 // ---------------- LOAD ALL ISSUES ----------------
 async function loadissues() {
   try {
@@ -89,26 +120,27 @@ function displayissues() {
       imgsrc = "./assets/Closed.png";
     }
 
-    let priority = issue.priority?.toLowerCase();
+    const priorityBg = getPriorityClass(issue.priority);
 
-    let priorityBg = "bg-gray-100";
+    let labelsHTML = "";
 
-    if (priority === "high") {
-      priorityBg = "bg-red-200 text-red-600";
-    } 
-    else if (priority === "medium") {
-      priorityBg = "bg-orange-200 text-orange-600";
-    } 
-    else if (priority === "low") {
-      priorityBg = "bg-gray-200 text-gray-500";
-    }
+issue.labels?.forEach(label => {
+  const color = getLabelColor(label);
 
-    card.className = `p-4 shadow bg-white rounded-lg cursor-pointer ${borderClass}`;
+  labelsHTML += `
+    <span class="px-2 py-1 rounded text-xs mr-1 ${color}">
+      ${label}
+    </span>
+  `;
+});
+
+    
+    card.className = `mt-8 p-4 mx-2 shadow bg-white rounded-lg cursor-pointer ${borderClass}`;
 
     card.innerHTML = `
       <div class="flex justify-between items-center">
         <img src="${imgsrc}" class="w-8 h-8" />
-        <span class="px-3 py-1 rounded ${priorityBg}">
+        <span class="px-3 py-1 rounded-[16px] ${priorityBg}">
           ${issue.priority}
         </span>
       </div>
@@ -118,6 +150,13 @@ function displayissues() {
       <p class="text-xs text-gray-500">
         ${issue.description.slice(0, 55)}...
       </p>
+
+      <div class="mt-2 pb-4 flex flex-wrap  border-b-[1px] border-gray-400  gap-1"> ${labelsHTML} </div>
+
+
+      <p  class="pt-3 pb-3 text-[12px] text-gray-400"> ${issue.author}</P>
+
+      <p class=" text-gray-400 text-[12px]"> ${issue.createdAt} </>
     `;
 
     card.addEventListener("click", () => openModal(issue.id));
@@ -151,18 +190,63 @@ function setTab(tab, btn) {
 // ---------------- MODAL OPEN ----------------
 function openModal(id) {
   const issue = issues.find(i => i.id === id);
-
   if (!issue) return;
 
   selectedIssue = issue;
 
   document.getElementById("modal-title").innerText = issue.title;
   document.getElementById("modal-desc").innerText = issue.description;
-  document.getElementById("modal-status").innerText = issue.status;
+  document.getElementById("updated").innerText= issue.updatedAt;
+    
+//---------lebel style------------//
+    let labelsHTML = "";
+
+     issue.labels?.forEach(label => {
+    const color = getLabelColor(label);
+
+    labelsHTML += `
+      <span class="px-2 py-1 rounded text-xs ${color}">
+        ${label}
+      </span>
+    `;
+  });
+
+  document.getElementById("modal-label").innerHTML = labelsHTML;
+
+  //------------priority----------//
+
+  const priorityBg = getPriorityClass(issue.priority);
+
+  document.getElementById("priority").innerHTML=`<span>Priority:</span> <br> <span class="px-3 py-1 rounded-[16px] ${priorityBg}">
+     ${issue.priority}
+</span>`;
+
+
+//--------------assignee---------------//
+
+document.getElementById("assignee").innerHTML=`<span class="font-medium">Assignee: </span class="font-normal"> <br> <span> ${issue.assignee} </span>`
+
+  // ---------------- STATUS STYLE ----------------
+  const statusEl = document.getElementById("modal-status");
+
+  const status = issue.status?.toLowerCase();
+
+  let statusClass = "bg-gray-200 text-gray-600";
+
+  if (status === "open") {
+    statusClass = "bg-green-100 text-green-600";
+  } 
+  else if (status === "closed") {
+    statusClass = "bg-red-100 text-red-600";
+  }
+
+  statusEl.innerText = issue.status;
+  statusEl.className = `px-2 py-1 rounded text-xs ml-1 ${statusClass}`;
 
   modal.classList.remove("hidden");
   modal.classList.add("flex");
 }
+
 
 // ---------------- MODAL CLOSE + STATUS UPDATE ----------------
 function closeModal() {
@@ -195,7 +279,10 @@ window.onload = () => {
   if (allBtn) {
     allBtn.classList.add("bg-blue-500", "text-white");
     activeBtn = allBtn;
-  }
+  };
+
+ 
+
 
   loadissues();
 };

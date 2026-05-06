@@ -4,115 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Github issue tracker</title>
-    <link rel="stylesheet" href="./style.css">
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        *{
+            
+            font-family: "Geist", sans-serif;
+            
+
+
+    
+        }
+    </style>
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <header class="bg-[ffffff]">
-        <nav class="px-4 max-w-[576px] m-auto flex justify-between items-center py-2 md:max-w-[768px] lg:max-w-[1320px]">
-            <div class="flex items-center">
-                <img class="w-[50px]" src="./assets/github-logo.png" alt="">
-                <h2 class="hidden md:block font-semibold text-[24px]">github issue tracker</h2>
-            </div>
-            <div class=" w-1/2 relative lg:w-full max-w-md "> 
-        <input id="searchInput" class=" w-1/2 lg: w-full rounded-[32px] bg-gray-100 border-none pl-4 px-16 py-2 " placeholder="search" type="search"> 
-        <button class="absolute right-1 top-1/2 -translate-y-1/2 bg-white py-[6px] px-[6px] rounded-[32px] "><img class="cursor-pointer" src="./assets/search (1).png" alt=""></button>
-            </div>
-        </nav>
-    </header>
-    <section class=" bg-[#F8FAFC] p-8">
-        <div class="bg-white py-8 max-w-[1110px] m-auto mt-[28px] rounded-lg flex gap-3 ">
-            <button onclick="setTab('all', this)" class="border-blue-500 border-[1px] tab rounded-[24px] py-2 px-6">All</button>
-    <button onclick="setTab('open', this)" class="border-blue-500 border-[1px] tab rounded-[24px] py-2 px-6">Open</button>
-    <button onclick="setTab('closed', this)" class="border-blue-500 border-[1px] tab rounded-[24px] py-2 px-6">Closed</button>
+    <section>
+    <div class="w-[450px] m-auto bg-[hsl(0,0%,100%)] mt-[80px] shadow-sm rounded-lg md:w-[520px]  ">
+        <div class="flex flex-col justify-center items-center">
+            <img class="mt-[32px]" src="./assets/github-logo.png" alt="logo">
+            <h2 class="pt-6 font-semibold text-[24px]">GitHub Issues Tracker</h2>
+            <p class="pt-2 pb-[24px] text-[#64748B] text-[16px]">Sign in to manage your issues</p>
+            <div id="invalid-alert" class="bg-red-600 text-white py-1 px-8 rounded-lg hidden "><p>Inavalid Login Info</p></div>
+        </div>
+        <div>
+            <label class="block text-black-700 font-medium mb-2 pl-8">
+             Username
+            </label>
+            <input id="UserName" type="text" placeholder="Enter  Username" class="p-2 mx-8 w-[350px] border-none opacity-100 border- bg-[#E4E4E7] shadow-lg rounded pl-2 md:w-[456px]"  >
+            <p class="pl-8 text-[#4A00FF] pt-2 pb-4">Default: admin</p>
 
-    
-    
+             <label class="block text-black-700 font-medium mb-2 pl-8">
+             Password
+            </label>
+            <input id="password" type="password" placeholder="Enter Password" class="p-2 mx-8 w-[350px] border-none opacity-100 border- bg-[#E4E4E7] shadow-lg rounded pl-2 md:w-[456px]"  >
+            <p class="pl-8 text-[#4A00FF] pt-2">Default: admin123</p>
+
+            <button id="login-btn" class="bg-[#4A00FF] py-2 w-[350px] text-white mx-8 rounded-lg mt-8 mb-8 md:w-[456px]">Sing in</button>
         </div>
 
-        <div class=" bg-white m-auto mt-4 rounded-lg flex justify-between items-center max-w-[1110px] py-8">
-            <div class="flex pl-[36px] gap-2"> 
-                <div><img class="bg-purple-300 rounded-[50%] py-1 px-1" src="./assets/Aperture.png" alt=""></div>
-               <div> <h2 id="countbox" class="font-semibold text-[16px]"> </h2>
-                <p class="text-[#64748B]">Track and manage your project issues</p></div>
-            </div>
-            <div class="pr-[40px] flex items-center gap-1">
-           <div class=" w-3 h-3 bg-green-600 rounded-[50%]"> </div>  <p>Open</p>
-
-            <div class="pr-[40px] flex items-center gap-1 pl-1">
-           <div class=" w-3 h-3 bg-purple-700 rounded-[50%]"> </div>  <p>Close</p>
-            </div>
-            </div>
-
-             
-        </div>
-        <div id="loading" class="  flex items-center justify-center mt-10 hidden ">
-            <span class="loading loading-spinner text-primary "></span>
-<span class="loading loading-spinner text-secondary"></span>
-<span class="loading loading-spinner text-accent"></span>
-<span class="loading loading-spinner text-neutral"></span>
-<span class="loading loading-spinner text-info"></span>
-<span class="loading loading-spinner text-success"></span>
-<span class="loading loading-spinner text-warning"></span>
-<span class="loading loading-spinner text-error"></span>
-        </div>
-
-
-        
-
-
-
-
-
-
-
-        <div id="card-section" class=" relative grid grid-cols-1 gap-4 max-w-[1110px] m-auto rounded-lg bg-[#FBFBFB] md:grid-cols-2 lg:grid-cols-4 ">
-
-
-
-           
-
-
-        </div>
-
-    
-
-
-</div>
-<div id="card-section" class="relative grid grid-cols-3 gap-4"></div>
-
-<!-- MODAL (card section এর ভিতরে রাখবে) -->
-<div id="modal" class="absolute hidden top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-
-  <div class="bg-white w-[420px] rounded-lg p-5 shadow-lg relative">
-
-    <button onclick="closeModal()" class="absolute top-2 right-3 text-xl">✖</button>
-
-    <h2 id="modal-title" class="text-lg font-bold"></h2>
-    <p id="modal-desc" class="text-sm text-gray-600"></p>
-
-    <p class="mt-2 text-sm">
-      Status: <span id="modal-status"></span>
-    </p>
-
-    <button onclick="closeModal()" class="mt-4 w-full bg-blue-500 text-white py-2 rounded">
-      Close
-    </button>
-
-  </div>
-
-</div>
-
-
-       
-
+    </div>
     </section>
-
-    <script src="./script.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
